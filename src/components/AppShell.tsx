@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { BUSINESS } from "@/lib/business";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -65,10 +66,13 @@ function SidebarBody({ onNavigate }: { onNavigate?: (() => void) | undefined }) 
     <div className="flex h-full flex-col bg-sidebar p-4 text-sidebar-foreground">
       <Brand />
       <NavList onNavigate={onNavigate} />
-      <div className="mt-auto rounded-xl border border-sidebar-border p-3 text-xs text-sidebar-foreground/70">
+      <div className="mt-auto border-t border-sidebar-border pt-5 text-xs text-sidebar-foreground/80">
         <div className="font-semibold text-sidebar-accent-foreground">Smarter Operations.</div>
         <div>Cleaner Spaces.</div>
-        <div className="mt-2">Cape Town, South Africa</div>
+        <div className="mt-2">{BUSINESS.location}</div>
+        <a className="mt-3 block hover:text-sidebar-primary" href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>
+        <a className="mt-2 block break-all hover:text-sidebar-primary" href={BUSINESS.emailHref}>{BUSINESS.email}</a>
+        <a className="mt-2 block text-sidebar-primary hover:underline" href={BUSINESS.whatsappHref} target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
     </div>
   );
@@ -87,7 +91,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen lg:pl-64">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 lg:block">
+      <aside className="fixed inset-y-0 left-0 hidden w-64 overflow-y-auto lg:block">
         <SidebarBody />
       </aside>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -106,17 +110,17 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="truncate text-xs text-primary">AI Cleaning Operations Assistant</div>
         </div>
         <div className="ml-auto flex items-center gap-4">
-          <div className="hidden items-center gap-2 text-sm text-muted-foreground md:flex">
+          <div className="hidden items-center gap-2 text-xs text-muted-foreground xl:flex">
             <CalendarDays className="h-4 w-4" />
             {today}
           </div>
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-sm font-bold text-secondary-foreground">
-              ZN
+              {BUSINESS.initials}
             </div>
             <div className="hidden leading-tight sm:block">
-              <div className="text-sm font-semibold">Zanele N.</div>
-              <div className="text-xs text-muted-foreground">Operations Manager</div>
+              <div className="text-sm font-semibold">{BUSINESS.founder}</div>
+              <div className="text-xs text-muted-foreground">{BUSINESS.role}</div>
             </div>
           </div>
         </div>

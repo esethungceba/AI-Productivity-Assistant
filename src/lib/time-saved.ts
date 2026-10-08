@@ -9,9 +9,9 @@ export const MINUTES_SAVED: Record<AiTool, number> = {
   chat: 5,
 };
 
-const KEY = "sparklecore-time-saved";
-// Demo baseline so the dashboard is meaningful on first visit.
-export const BASELINE_MINUTES = 275;
+const KEY = "sparklecore-time-saved-business";
+// Only completed tasks contribute; no demonstration baseline.
+export const BASELINE_MINUTES = 0;
 
 export function getTimeSaved(): { minutes: number; counts: Record<string, number> } {
   if (typeof window === "undefined") return { minutes: BASELINE_MINUTES, counts: {} };
