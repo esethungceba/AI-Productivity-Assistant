@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { NotebookPen, Wand2, FlaskConical } from "lucide-react";
+import { NotebookPen, Wand2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { PageHeader } from "@/components/AppShell";
 import { AiOutput, FieldLabel } from "@/components/AiOutput";
 import { useAiStream } from "@/lib/use-ai-stream";
-import { DEMO_MEETING_NOTES } from "@/lib/demo-data";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/meetings")({
@@ -30,8 +29,7 @@ function MeetingsPage() {
 
   return (
     <>
-      <PageHeader icon={NotebookPen} title="Meeting Notes Summarizer" description="Paste your meeting notes and click Summarise. The AI extracts decisions, action items, responsible people and deadlines."
-        actions={<Button variant="outline" onClick={() => setNotes(DEMO_MEETING_NOTES)}><FlaskConical className="h-4 w-4" /> Load demo notes</Button>} />
+      <PageHeader icon={NotebookPen} title="Meeting Notes Summarizer" description="Meeting records and action items" />
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-4 rounded-2xl border bg-card p-5 shadow-card">
           <FieldLabel hint="rough notes are fine">Meeting notes</FieldLabel>

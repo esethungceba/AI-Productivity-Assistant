@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, Wand2, RefreshCw, Pencil, Check, FlaskConical } from "lucide-react";
+import { Mail, Wand2, RefreshCw, Pencil, Check } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -39,17 +39,10 @@ function EmailPage() {
     if (ok) toast.success("Email generated — please review before sending.");
   };
 
-  const loadDemo = () => {
-    setRecipient("Client");
-    setPurpose("Rescheduling");
-    setTone("Apologetic");
-    setInfo("A client needs to move tomorrow's cleaning appointment from 09:00 to 14:00 because the cleaner is unavailable.");
-  };
 
   return (
     <>
-      <PageHeader icon={Mail} title="Smart Email Generator" description="Choose who the email is for, what it's about and the tone. Add the key details, then click Generate Email."
-        actions={<Button variant="outline" onClick={loadDemo}><FlaskConical className="h-4 w-4" /> Load demo</Button>} />
+      <PageHeader icon={Mail} title="Smart Email Generator" description="Client correspondence" />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
         <div className="space-y-4 rounded-2xl border bg-card p-5 shadow-card">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">

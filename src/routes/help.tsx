@@ -6,20 +6,19 @@ import { PageHeader } from "@/components/AppShell";
 import { Markdown } from "@/components/AiOutput";
 import { useAiStream } from "@/lib/use-ai-stream";
 import { BASIC_PROMPT_EXAMPLE, IMPROVED_PROMPT_EXAMPLE, SYSTEM_PROMPTS } from "@/lib/prompts";
+import { BusinessContact } from "@/components/BusinessContact";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/help")({
-  head: () => pageMeta("Help & About This Project", "How to use SparkleCore AI, how the AI workflow and prompt engineering work, and the project's goals."),
+  head: () => pageMeta("Help & About SparkleCore", "How to use SparkleCore AI, how the AI workflow and prompt engineering work, and the project's goals."),
   component: HelpPage,
 });
 
 const FLOW = ["User input", "Context", "Structured prompt", "AI model", "Validation", "AI output", "Human review", "Final action"];
 const DEMOS = [
-  { to: "/email", t: "Demo 1 – Email", d: "Click “Load demo” to reschedule a 09:00 appointment to 14:00." },
-  { to: "/scheduler", t: "Demo 2 – Scheduler", d: "Load 5 jobs and 3 available cleaners; the AI flags conflicts." },
-  { to: "/meetings", t: "Demo 3 – Meeting notes", d: "Load sample notes to extract decisions and action items." },
-  { to: "/research", t: "Demo 4 – Research", d: "Ask “How can SparkleCore improve customer satisfaction?”" },
-  { to: "/chat", t: "Demo 5 – Chatbot", d: "Ask “Help me plan tomorrow's cleaning operations.”" },
+  { to: "/clients", t: "Client records", d: "Sample clients, booking information and masked contact details." },
+  { to: "/jobs", t: "Cleaning jobs", d: "Sample bookings, assignments and job statuses." },
+  { to: "/scheduler", t: "Cleaner scheduling", d: "Sample jobs and cleaner availability." },
 ] as const;
 
 function PromptTester() {
@@ -54,23 +53,24 @@ function PromptTester() {
 function HelpPage() {
   return (
     <>
-      <PageHeader icon={LifeBuoy} title="Help & About This Project" description="How to use the assistant, how the AI works, and why SparkleCore built it." />
+      <PageHeader icon={LifeBuoy} title="Help & About SparkleCore" description="How to use the assistant, how the AI works, and why SparkleCore built it." />
       <div className="space-y-6">
+        <BusinessContact />
         <section className="grid gap-4 md:grid-cols-2">
           <div className="rounded-2xl border bg-card p-5 shadow-card">
-            <h2 className="text-lg font-bold">About this project</h2>
+            <h2 className="text-lg font-bold">About SparkleCore</h2>
             <h3 className="mt-3 text-sm font-bold text-primary">Problem</h3>
             <p className="text-sm text-muted-foreground">Cleaning businesses spend significant time on repetitive admin such as scheduling, client communication, meeting documentation and research — time taken away from serving clients.</p>
             <h3 className="mt-3 text-sm font-bold text-primary">Solution</h3>
             <p className="text-sm text-muted-foreground">SparkleCore AI Cleaning Operations Assistant uses AI to automate and support these repetitive workplace tasks, with human review built in.</p>
             <h3 className="mt-3 text-sm font-bold text-primary">Target users</h3>
-            <p className="text-sm text-muted-foreground">Business owner · Operations manager · Cleaning supervisors · Administrative employees</p>
+            <p className="text-sm text-muted-foreground">Founder · Operations manager · Cleaning supervisors · Administrative employees</p>
             <h3 className="mt-3 text-sm font-bold text-primary">Expected benefits</h3>
             <p className="text-sm text-muted-foreground">Improved productivity, faster communication, better organisation, reduced repetitive work, more structured scheduling and better access to information.</p>
           </div>
           <div className="rounded-2xl border bg-card p-5 shadow-card">
-            <h2 className="text-lg font-bold">Demo mode</h2>
-            <p className="text-sm text-muted-foreground">Prepared examples for a quick demonstration:</p>
+            <h2 className="text-lg font-bold">Demonstration records</h2>
+            <p className="text-sm text-muted-foreground">Only clients, cleaning jobs and cleaners use sample records; company details are real.</p>
             <ul className="mt-3 space-y-2">
               {DEMOS.map((d) => (
                 <li key={d.to}><Link to={d.to} className="block rounded-lg border p-3 transition hover:border-primary/50 hover:bg-accent"><div className="text-sm font-semibold">{d.t}</div><div className="text-xs text-muted-foreground">{d.d}</div></Link></li>
@@ -111,7 +111,7 @@ function HelpPage() {
           <h2 className="text-lg font-bold">Quick help</h2>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
             <li>Choose a tool from the menu, fill in the form, then click the Generate button.</li>
-            <li>Use “Load demo” on any tool to see an example instantly.</li>
+            <li>Sample clients, jobs and cleaners are clearly marked as demo data.</li>
             <li>Always read the result, edit it if needed, then click Copy to use it.</li>
             <li>If you see “Please provide the required information”, a required field is empty.</li>
           </ul>

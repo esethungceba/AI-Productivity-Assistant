@@ -2,12 +2,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   CalendarCheck, ClipboardList, CheckCircle2, Mail, Clock, CalendarClock, NotebookPen, Search,
-  MessageSquare, ArrowRight, MapPin, User, Timer,
+  MessageSquare, ArrowRight, MapPin, User, Timer, Users,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { JOBS, formatDate, type Job } from "@/lib/demo-data";
+import { CLIENTS, JOBS, formatDate, type Job } from "@/lib/demo-data";
 import { StatusBadge, DemoTag } from "@/components/StatusBadge";
 import { getTimeSaved, formatMinutes, BASELINE_MINUTES } from "@/lib/time-saved";
+import { BUSINESS } from "@/lib/business";
+import { BusinessContact } from "@/components/BusinessContact";
+import { Button } from "@/components/ui/button";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -16,10 +19,10 @@ export const Route = createFileRoute("/")({
 });
 
 const STATS = [
-  { label: "Today's Cleaning Jobs", value: "8", sub: "jobs scheduled", icon: CalendarCheck },
-  { label: "Pending Tasks", value: "5", sub: "tasks requiring attention", icon: ClipboardList },
-  { label: "Completed Jobs", value: "12", sub: "completed this week", icon: CheckCircle2 },
-  { label: "Client Communications", value: "4", sub: "emails requiring responses", icon: Mail },
+  { label: "Scheduled Jobs", value: JOBS.filter((j) => j.status === "Scheduled").length, sub: "upcoming bookings", icon: CalendarCheck },
+  { label: "Jobs Needing Attention", value: JOBS.filter((j) => j.status === "Delayed").length, sub: "delayed jobs", icon: ClipboardList },
+  { label: "Completed Jobs", value: JOBS.filter((j) => j.status === "Completed").length, sub: "completed bookings", icon: CheckCircle2 },
+  { label: "Client Records", value: CLIENTS.length, sub: "sample client records", icon: Users },
 ];
 
 const TOOLS = [
@@ -47,20 +50,22 @@ function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-2xl bg-brand p-6 text-primary-foreground shadow-card md:p-8">
-        <p className="text-sm font-medium opacity-90">Good day, Zanele</p>
-        <h1 className="mt-1 text-2xl font-bold md:text-3xl">Smarter Operations. Cleaner Spaces.</h1>
+      <section className="relative overflow-hidden rounded-lg bg-brand p-6 text-primary-foreground shadow-card md:p-8">
+        <p className="text-sm font-medium opacity-90">Good day, {BUSINESS.founder}</p>
+        <h1 className="mt-1 text-2xl font-bold md:text-3xl">{BUSINESS.name}</h1>
         <p className="mt-2 max-w-xl text-sm opacity-90">
-          Choose a workplace task below. Enter your details, let the AI prepare a draft, then review and use it.
+          Smarter Operations. Cleaner Spaces.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {TOOLS.map((t) => (
-            <Link key={t.to} to={t.to} className="inline-flex items-center gap-2 rounded-full bg-card/15 px-4 py-2 text-sm font-medium backdrop-blur transition hover:bg-card/25">
+            <Link key={t.to} to={t.to} className="inline-flex items-center gap-2 rounded-md border border-primary-foreground/15 bg-card/10 px-4 py-2 text-sm font-medium backdrop-blur transition hover:bg-card/25">
               <t.icon className="h-4 w-4" /> {t.label}
             </Link>
           ))}
         </div>
       </section>
+
+      <BusinessContact />
 
       <section>
         <div className="mb-3 flex items-center gap-2"><h2 className="text-lg font-bold">Operations overview</h2><DemoTag /></div>
@@ -87,7 +92,7 @@ function Dashboard() {
           <ul className="divide-y">
             {upcoming.map((j) => (
               <li key={j.id}>
-                <button onClick={() => setSelected(j)} className="grid w-full grid-cols-2 gap-2 px-5 py-4 text-left transition hover:bg-muted/60 md:grid-cols-[1.4fr_1fr_1.2fr_1fr_auto] md:items-center">
+                <Button variant="ghost" onClick={() => setSelected(j)} className="grid h-auto w-full whitespace-normal rounded-none grid-cols-2 gap-2 px-5 py-4 text-left transition hover:bg-muted/60 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1fr)_auto] md:items-center">
                   <div>
                     <div className="font-semibold">{j.client}</div>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" />{j.location}</div>
@@ -96,16 +101,16 @@ function Dashboard() {
                   <div className="text-sm text-muted-foreground">{formatDate(j.date)} · {j.time}</div>
                   <div className="flex items-center gap-1 text-sm"><User className="h-3.5 w-3.5 text-muted-foreground" />{j.cleaner}</div>
                   <StatusBadge value={j.status} />
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="rounded-2xl border bg-soft p-5 shadow-card">
-          <h2 className="font-bold">How SparkleCore AI Saves Time</h2>
-          <div className="mt-4 rounded-xl bg-card p-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground"><Timer className="h-4 w-4 text-primary" /> Estimated time saved this week</div>
+        <section className="border-t border-primary/20 bg-secondary/40 p-5">
+          <h2 className="font-bold">AI task activity</h2>
+          <div className="mt-4 border-b pb-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground"><Timer className="h-4 w-4 text-primary" /> Estimated time saved</div>
             <div className="mt-1 font-display text-2xl font-bold text-secondary-foreground">{formatMinutes(minutes)}</div>
             <p className="mt-1 text-xs text-muted-foreground">An estimate based on typical task times, not a guaranteed measurement. Increases each time you complete an AI task.</p>
           </div>
