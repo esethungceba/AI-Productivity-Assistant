@@ -19,7 +19,7 @@ const EXAMPLES = [
   "How can SparkleCore improve customer satisfaction?",
   "How can a small cleaning company reduce employee turnover?",
   "What should we consider before expanding into office cleaning?",
-  "How can we reduce travel time between jobs in Cape Town?",
+  "How can we reduce travel time between jobs in Johannesburg?",
 ];
 
 function ResearchPage() {

@@ -23,11 +23,11 @@ type Cleaner = { name: string; available: boolean };
 const empty: JobRow = { client: "", location: "", service: "Standard Home Cleaning", duration: "3", priority: "Medium", time: "", notes: "" };
 
 const DEMO_JOBS: JobRow[] = [
-  { client: "Sarah Williams", location: "Cape Town CBD", service: "Standard Home Cleaning", duration: "3", priority: "High", time: "08:00", notes: "Pet-friendly products" },
-  { client: "David Jacobs", location: "Observatory", service: "Deep Cleaning", duration: "4", priority: "Medium", time: "", notes: "Kitchen & bathrooms" },
-  { client: "Cape Town Office Solutions", location: "City Bowl", service: "Office Cleaning", duration: "3", priority: "High", time: "", notes: "Must finish by 16:00" },
-  { client: "Fatima Abrahams", location: "Woodstock", service: "Move-out Cleaning", duration: "6", priority: "High", time: "09:00", notes: "Agent inspection at 15:00" },
-  { client: "Michael van der Merwe", location: "Rondebosch", service: "Standard Home Cleaning", duration: "2", priority: "Low", time: "14:00", notes: "" },
+  { client: "Sarah Williams", location: "Sandton", service: "Standard Home Cleaning", duration: "3", priority: "High", time: "08:00", notes: "Pet-friendly products" },
+  { client: "David Jacobs", location: "Rosebank", service: "Deep Cleaning", duration: "4", priority: "Medium", time: "", notes: "Kitchen & bathrooms" },
+  { client: "Johannesburg Office Solutions", location: "Midrand", service: "Office Cleaning", duration: "3", priority: "High", time: "", notes: "Must finish by 16:00" },
+  { client: "Fatima Abrahams", location: "Soweto", service: "Move-out Cleaning", duration: "6", priority: "High", time: "09:00", notes: "Agent inspection at 15:00" },
+  { client: "Michael van der Merwe", location: "Randburg", service: "Standard Home Cleaning", duration: "2", priority: "Low", time: "14:00", notes: "" },
 ];
 
 const sel = "h-9 w-full rounded-md border border-input bg-background px-2 text-sm";
@@ -45,7 +45,7 @@ function SchedulerPage() {
     setDate("2026-10-10");
     setCleaners([{ name: "Thandi", available: true }, { name: "Lerato", available: true }, { name: "Nomsa", available: true }, { name: "Ayanda", available: false }]);
     setJobs(DEMO_JOBS);
-    setRequirements("Thandi must finish by 16:00 for training.");
+    setRequirements("");
   };
 
   const generate = async () => {
@@ -99,7 +99,7 @@ Special requirements: ${requirements.trim() || "None"}`;
               {jobs.map((j, i) => (
                 <div key={i} className="grid gap-2 rounded-xl border bg-muted/40 p-3 sm:grid-cols-2 md:grid-cols-6">
                   <Input className="md:col-span-2" placeholder="Client" value={j.client} onChange={(e) => updJob(i, "client", e.target.value)} />
-                  <Input className="md:col-span-2" placeholder="Location (e.g. Observatory)" value={j.location} onChange={(e) => updJob(i, "location", e.target.value)} />
+                  <Input className="md:col-span-2" placeholder="Location (e.g. Rosebank)" value={j.location} onChange={(e) => updJob(i, "location", e.target.value)} />
                   <select className={`${sel} md:col-span-2`} value={j.service} onChange={(e) => updJob(i, "service", e.target.value)}>{SERVICES.map((s) => <option key={s}>{s}</option>)}</select>
                   <Input type="number" min="0.5" step="0.5" placeholder="Hours" value={j.duration} onChange={(e) => updJob(i, "duration", e.target.value)} />
                   <select className={sel} value={j.priority} onChange={(e) => updJob(i, "priority", e.target.value)}>{["High", "Medium", "Low"].map((p) => <option key={p}>{p}</option>)}</select>
