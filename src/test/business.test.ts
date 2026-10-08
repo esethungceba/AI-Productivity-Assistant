@@ -26,6 +26,6 @@ describe("No fabricated activity", () => {
   it("retains estimates from completed tasks", () => {
     recordTimeSaved("email");
     expect(getTimeSaved().minutes).toBe(10);
-    expect(getTimeSaved().counts.email).toBe(1);
+    expect(getTimeSaved().counts["email"]).toBe(1);
   });
 });
