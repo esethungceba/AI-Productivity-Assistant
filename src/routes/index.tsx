@@ -48,7 +48,7 @@ function Dashboard() {
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-2xl bg-brand p-6 text-primary-foreground shadow-card md:p-8">
-        <p className="text-sm font-medium opacity-90">Good day, Zanele 👋</p>
+        <p className="text-sm font-medium opacity-90">Good day, Zanele</p>
         <h1 className="mt-1 text-2xl font-bold md:text-3xl">Smarter Operations. Cleaner Spaces.</h1>
         <p className="mt-2 max-w-xl text-sm opacity-90">
           Choose a workplace task below. Enter your details, let the AI prepare a draft, then review and use it.
