@@ -25,7 +25,7 @@ function friendly(err: unknown): string {
 }
 
 export async function handleAi(request: Request): Promise<Response> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) return json(500, "The AI service is not configured.");
 
   let body: Body;
@@ -36,11 +36,12 @@ export async function handleAi(request: Request): Promise<Response> {
   }
   const tool = body.tool as AiTool;
   if (!TOOLS.includes(tool)) return json(400, "Unknown AI tool.");
-  const messages: ModelMessage[] = (body.messages ?? [])
+  const clean = (body.messages ?? [])
     .filter((m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
     .slice(-30)
     .map((m) => ({ role: m.role as "user" | "assistant", content: m.content.slice(0, 20000) }));
-  if (!messages.length || !messages[messages.length - 1].content.trim()) {
+  const messages: ModelMessage[] = clean;
+  if (!clean.length || !clean[clean.length - 1]?.content.trim()) {
     return json(400, "Please provide the required information before generating a result.");
   }
 

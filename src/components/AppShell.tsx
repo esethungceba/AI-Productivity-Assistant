@@ -34,7 +34,7 @@ function Brand() {
   );
 }
 
-function NavList({ onNavigate }: { onNavigate?: () => void }) {
+function NavList({ onNavigate }: { onNavigate?: (() => void) | undefined }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   return (
     <nav className="mt-6 flex flex-col gap-1">
@@ -60,7 +60,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
+function SidebarBody({ onNavigate }: { onNavigate?: (() => void) | undefined }) {
   return (
     <div className="flex h-full flex-col bg-sidebar p-4 text-sidebar-foreground">
       <Brand />

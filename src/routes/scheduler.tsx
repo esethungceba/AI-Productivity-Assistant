@@ -20,7 +20,7 @@ export const Route = createFileRoute("/scheduler")({
 type JobRow = { client: string; location: string; service: string; duration: string; priority: string; time: string; notes: string };
 type Cleaner = { name: string; available: boolean };
 
-const empty: JobRow = { client: "", location: "", service: SERVICES[0], duration: "3", priority: "Medium", time: "", notes: "" };
+const empty: JobRow = { client: "", location: "", service: "Standard Home Cleaning", duration: "3", priority: "Medium", time: "", notes: "" };
 
 const DEMO_JOBS: JobRow[] = [
   { client: "Sarah Williams", location: "Cape Town CBD", service: "Standard Home Cleaning", duration: "3", priority: "High", time: "08:00", notes: "Pet-friendly products" },

@@ -14,7 +14,7 @@ export async function streamAi(
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ tool, messages }),
-    signal,
+    signal: signal ?? null,
   });
   if (!res.ok || !res.body) {
     const data = await res.json().catch(() => ({}));
