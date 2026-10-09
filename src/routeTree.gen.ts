@@ -16,6 +16,7 @@ import { Route as EmailRouteImport } from './routes/email'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as MeetingsRouteImport } from './routes/meetings'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ResponsibleAiRouteImport } from './routes/responsible-ai'
 import { Route as SchedulerRouteImport } from './routes/scheduler'
@@ -56,6 +57,11 @@ const MeetingsRoute = MeetingsRouteImport.update({
   path: '/meetings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResearchRoute = ResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/help': typeof HelpRoute
   '/jobs': typeof JobsRoute
   '/meetings': typeof MeetingsRoute
+  '/portfolio': typeof PortfolioRoute
   '/research': typeof ResearchRoute
   '/responsible-ai': typeof ResponsibleAiRoute
   '/scheduler': typeof SchedulerRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/help': typeof HelpRoute
   '/jobs': typeof JobsRoute
   '/meetings': typeof MeetingsRoute
+  '/portfolio': typeof PortfolioRoute
   '/research': typeof ResearchRoute
   '/responsible-ai': typeof ResponsibleAiRoute
   '/scheduler': typeof SchedulerRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/help': typeof HelpRoute
   '/jobs': typeof JobsRoute
   '/meetings': typeof MeetingsRoute
+  '/portfolio': typeof PortfolioRoute
   '/research': typeof ResearchRoute
   '/responsible-ai': typeof ResponsibleAiRoute
   '/scheduler': typeof SchedulerRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/help'
     | '/jobs'
     | '/meetings'
+    | '/portfolio'
     | '/research'
     | '/responsible-ai'
     | '/scheduler'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/help'
     | '/jobs'
     | '/meetings'
+    | '/portfolio'
     | '/research'
     | '/responsible-ai'
     | '/scheduler'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/help'
     | '/jobs'
     | '/meetings'
+    | '/portfolio'
     | '/research'
     | '/responsible-ai'
     | '/scheduler'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   HelpRoute: typeof HelpRoute
   JobsRoute: typeof JobsRoute
   MeetingsRoute: typeof MeetingsRoute
+  PortfolioRoute: typeof PortfolioRoute
   ResearchRoute: typeof ResearchRoute
   ResponsibleAiRoute: typeof ResponsibleAiRoute
   SchedulerRoute: typeof SchedulerRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeetingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/research': {
       id: '/research'
       path: '/research'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   HelpRoute: HelpRoute,
   JobsRoute: JobsRoute,
   MeetingsRoute: MeetingsRoute,
+  PortfolioRoute: PortfolioRoute,
   ResearchRoute: ResearchRoute,
   ResponsibleAiRoute: ResponsibleAiRoute,
   SchedulerRoute: SchedulerRoute,
