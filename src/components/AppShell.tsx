@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import {
   LayoutDashboard, Mail, CalendarClock, NotebookPen, Search, MessageSquare,
-  Users, ClipboardList, ShieldCheck, LifeBuoy, Droplets, Menu, CalendarDays,
+  Users, ClipboardList, ShieldCheck, LifeBuoy, Droplets, Menu, CalendarDays, UserRound,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ const NAV = [
   { to: "/jobs", label: "Cleaning Tasks", icon: ClipboardList },
   { to: "/responsible-ai", label: "Responsible AI", icon: ShieldCheck },
   { to: "/help", label: "Help & About", icon: LifeBuoy },
+  { to: "/portfolio", label: "My Portfolio", icon: UserRound },
 ] as const;
 
 function Brand() {
@@ -79,6 +80,7 @@ function SidebarBody({ onNavigate }: { onNavigate?: (() => void) | undefined }) 
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const path = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
   const [today, setToday] = useState("");
   useEffect(() => {
@@ -88,6 +90,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       }),
     );
   }, []);
+
+  if (path.startsWith("/portfolio")) return <>{children}</>;
 
   return (
     <div className="min-h-screen lg:pl-64">
